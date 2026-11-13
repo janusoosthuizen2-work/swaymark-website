@@ -2,7 +2,7 @@
   'use strict';
   document.documentElement.classList.add('has-js');
 
-  const config = window.JANUS_CONFIG || {};
+  const config = window.SWAYMARK_CONFIG || {};
   const menuButton = document.querySelector('[data-menu-toggle]');
   const menu = document.querySelector('[data-nav-list]');
   if (menuButton && menu) {
@@ -36,23 +36,6 @@
     }
   });
 
-  const igUrl = typeof config.instagramUrl === 'string' && /^https:\/\/(www\.)?instagram\.com\/[A-Za-z0-9_.]+\/?(?:\?.*)?$/.test(config.instagramUrl.trim())
-    ? config.instagramUrl.trim() : '';
-  document.querySelectorAll('[data-instagram-link]').forEach(link => {
-    if (igUrl) {
-      link.href = igUrl;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      link.textContent = config.instagramHandle ? `Instagram · @${config.instagramHandle.replace(/^@/, '')} ↗` : 'Follow on Instagram ↗';
-    } else {
-      link.href = 'contact.html';
-      link.textContent = 'Connect with me ↗';
-    }
-  });
-  document.querySelectorAll('[data-instagram-note]').forEach(note => {
-    if (igUrl) note.textContent = 'Creative work, ideas and updates — find me on Instagram.';
-  });
-
   document.querySelectorAll('[data-year]').forEach(node => { node.textContent = String(new Date().getFullYear()); });
   if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const observer = new IntersectionObserver(entries => {
@@ -84,9 +67,9 @@
       const name = clean('name'), address = clean('email'), business = clean('business');
       const service = clean('service'), timeframe = clean('timeframe'), message = clean('message');
       const subject = `New project enquiry from ${name}`;
-      const body = `Hello Janus,\n\nI'd like to talk about a project.\n\nName: ${name}\nEmail: ${address}\nBusiness: ${business || 'Not provided'}\nInterested in: ${service}\nTiming: ${timeframe || 'Flexible'}\n\nProject details:\n${message}\n\n— Sent using the contact form email-draft feature on Swaymark`;
+      const body = `Hello Janus,\n\nI'd like to talk about a project.\n\nName: ${name}\nEmail: ${address}\nBusiness: ${business || 'Not provided'}\nInterested in: ${service}\nTiming: ${timeframe || 'Flexible'}\n\nProject details:\n${message}\n\n— Prepared on the SWAYMARK website (please press Send)`;
       if (email) {
-        setStatus('Your email application should now open with a pre-filled draft. Please press Send in your email app to complete your enquiry.');
+        setStatus('An email draft should open in your email application. Review it and press Send to complete your enquiry. If nothing opens, please email janusoosthuizen2@gmail.com directly.');
         window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       } else {
         const copyText = `${subject}\n\n${body}`;

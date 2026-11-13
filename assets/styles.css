@@ -1,4 +1,4 @@
-/* JANUS — independent digital studio | Lightweight, dependency-free styles */
+/* SWAYMARK — independent digital studio | Lightweight, dependency-free styles */
 :root {
   color-scheme: light;
   --ink: #0b1615;
@@ -14,7 +14,7 @@
   --radius-lg: 24px;
   --radius-xl: 34px;
   --container: 1240px;
-  --sans: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --sans: 'Inter', 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
 }
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 100px; }
@@ -86,7 +86,7 @@ img { display: block; }
 .hero-meta > span { display: flex; gap: 9px; align-items: center; }
 .hero-meta strong { display: block; color: white; font-size: .87rem; }
 .hero-visual { position: relative; min-height: 600px; display: grid; place-items: center; }
-.hero-glow { position: absolute; width: min(470px, 95%); height: 470px; border-radius: 50%; background: var(--lime); filter: blur(110px); opacity: .13; }
+.hero-glow { position: absolute; width: min(470px, 95%); height: 470px; border-radius: 50%; background: var(--lime); filter: blur(64px); opacity: .095; }
 .hero-orbit { position: absolute; inset: 6% 0 8%; border: 1px dashed rgba(214,255,132,.21); border-radius: 50%; transform: rotate(-18deg); }
 .hero-orbit::before { content: '+'; color: var(--lime); font-size: 2.2rem; position: absolute; top: 12%; right: 19%; }
 .hero-orbit::after { content: '✳'; color: rgba(255,255,255,.5); font-size: 2.2rem; position: absolute; bottom: 8%; left: 18%; }
@@ -393,20 +393,74 @@ img { display: block; }
   .brand-title { font-size: .74rem; letter-spacing: .14em; }
   .brand-caption { font-size: .5rem; letter-spacing: .13em; }
 }
-/* SWAYMARK brand refinements */
-.brand-logo { width: 47px; height: 47px; object-fit: contain; flex: 0 0 47px; }
-.brand-logo.footer-logo { width: 59px; height: 59px; }
-.brand-title { color: #f8faf7; font-size: 1.14rem; font-weight: 850; letter-spacing: .13em; }
-.brand-caption { max-width: 230px; font-size: .48rem; letter-spacing: .09em; line-height: 1.4; opacity: .75; }
-.site-footer .brand-title { font-size: 1.45rem; }
-.site-footer .brand-caption { font-size: .58rem; max-width: none; }
-@media (max-width: 1100px) {
-  .header-wrap { gap: 16px; }
-  .nav-list { gap: 15px; }
-  .brand-caption { display: none; }
+
+/* SWAYMARK signature design system: premium definition without image or JS dependencies */
+:root {
+  --lift-sm: 0 4px 9px rgba(9, 30, 22, .035), 0 16px 34px rgba(9, 30, 22, .055);
+  --lift-md: 0 8px 20px rgba(9, 30, 22, .05), 0 26px 62px rgba(9, 30, 22, .075);
+  --edge: rgba(18, 55, 37, .12);
 }
-@media (max-width: 620px) {
-  .brand-logo { width: 39px; height: 39px; flex-basis: 39px; }
-  .brand-title { font-size: 1rem; }
-  .site-footer .brand-caption { display: block; }
+html { color-scheme: light; }
+body { background: #f8f9f3; }
+.site-header { border-bottom-color: rgba(218,255,182,.16); }
+.header-wrap { gap: 20px; }
+.brand { gap: 12px; }
+.brand-logo { width: 47px; height: 47px; object-fit: contain; flex: none; }
+.brand-logo.footer-logo { width: 58px; height: 58px; }
+.brand-copy { gap: 5px; }
+.brand-title { font-size: 1.32rem; font-weight: 850; line-height: .95; letter-spacing: .105em; color: #fff; }
+.brand-caption { font-size: .50rem; letter-spacing: .10em; color: #cadacc; opacity: 1; max-width: 225px; line-height: 1.45; }
+.nav-list { gap: clamp(12px,1.7vw,28px); }
+.nav-list a { font-size: .87rem; }
+.header-cta { box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 4px 18px rgba(171,250,50,.14); }
+.hero { background: radial-gradient(circle at 78% 38%, rgba(173,242,88,.08), transparent 35%), #0b1615; }
+.hero-kicker { line-height: 1.6; }
+.hero-copy { max-width: 570px; }
+.btn { box-shadow: 0 4px 12px rgba(9,33,22,.07); }
+.btn-lime { box-shadow: 0 6px 21px rgba(172,248,76,.16), inset 0 1px 0 rgba(255,255,255,.25); }
+.btn-ghost { box-shadow: none; }
+.browser-window { border: 1px solid rgba(255,255,255,.62); box-shadow: 0 22px 64px rgba(0,0,0,.32), 0 45px 90px rgba(0,0,0,.12); }
+.section-head h2, .page-hero h1 { text-wrap: balance; }
+.service-card, .offer, .detail-card, .value-card, .project, .contact-panel, .work-feature {
+  border: 1px solid var(--edge); box-shadow: var(--lift-sm);
+}
+.service-card, .offer, .detail-card, .project, .contact-panel, .work-feature { transition: transform .24s ease, box-shadow .24s ease, border-color .24s ease; }
+.service-card:hover, .offer:hover, .detail-card:hover, .project:hover {
+  transform: translateY(-3px); box-shadow: var(--lift-md); border-color: rgba(49,112,64,.22);
+}
+.service-card.dark { border-color: rgba(212,250,191,.20); }
+.service-card.featured { border-color: rgba(115,156,70,.28); }
+.process-step { border-top: 1px solid rgba(216,253,203,.23); padding-top: 22px; }
+.offer { background: #fffefa; }
+.social-panel { border-color: rgba(16,62,36,.14); box-shadow: var(--lift-md); }
+.social-tile { box-shadow: 0 8px 26px rgba(0,0,0,.09); }
+.cta-panel { border: 1px solid rgba(32,63,21,.12); box-shadow: 0 15px 48px rgba(41,68,22,.08); }
+.contact-panel { box-shadow: 0 10px 30px rgba(16,55,26,.045), 0 24px 70px rgba(16,55,26,.055); }
+.field input:hover, .field select:hover, .field textarea:hover { border-color: #a6b8a4; }
+.faq-list summary:focus-visible { outline: 3px solid #6f9331; outline-offset: 5px; border-radius: 8px; }
+.footer-main .brand-title { font-size: 1.45rem; }
+.footer-main .brand-caption { max-width: 300px; font-size: .59rem; }
+.footer-intro p { margin-top: 22px; }
+.page-hero::after { opacity: .72; }
+.legal .notice { border-radius: 14px; box-shadow: 0 5px 20px rgba(15,50,31,.05); }
+@media (max-width: 1180px) {
+  .header-wrap { gap: 12px; }
+  .brand-caption { max-width: 165px; }
+  .nav-list { gap: 12px; }
+  .header-cta { padding: 12px 14px; }
+}
+@media (max-width: 1020px) {
+  .brand-caption { display: none; }
+  .nav-list { gap: 16px; }
+}
+@media (max-width: 700px) {
+  .brand-title { font-size: 1.18rem; }
+  .brand-logo { width: 41px; height: 41px; }
+  .brand-caption { display: none; }
+  .footer-main .brand-caption { display: block; }
+  .service-card:hover, .offer:hover, .detail-card:hover, .project:hover { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  .has-js .reveal { opacity: 1; transform: none; }
 }

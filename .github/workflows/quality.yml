@@ -1,0 +1,19 @@
+name: SWAYMARK website quality checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  static-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the website
+        uses: actions/checkout@v4
+      - name: Check HTML links, schema, sitemap and metadata
+        run: python3 tools/quality_check.py
+      - name: Check JavaScript syntax
+        run: |
+          node --check assets/script.js
+          node --check assets/config.js

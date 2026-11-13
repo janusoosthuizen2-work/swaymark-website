@@ -1,0 +1,81 @@
+#!/usr/bin/env python3
+"""Zero-dependency checks for our static SWAYMARK website. Run from repo root."""
+from html.parser import HTMLParser
+from pathlib import Path
+from urllib.parse import urlparse, unquote
+import json
+import xml.etree.ElementTree as ET
+
+ROOT=Path(__file__).resolve().parent.parent
+PAGES=['index.html','services.html','work.html','about.html','contact.html','privacy.html','terms.html']
+
+class Page(HTMLParser):
+ def __init__(self):
+  super().__init__(convert_charrefs=True)
+  self.tags=[]
+  self.links=[]
+  self.images=[]
+  self.ids=set()
+  self.heading=0
+  self.scripts=[]
+  self._in_ld=False
+ def handle_starttag(self,tag,attrs):
+  a=dict(attrs)
+  self.tags.append((tag,a))
+  if 'id' in a:self.ids.add(a['id'])
+  if tag=='h1':self.heading+=1
+  if tag=='a' and 'href' in a:self.links.append(a['href'])
+  if tag=='img':self.images.append(a)
+  if tag=='script' and a.get('type')=='application/ld+json': self._in_ld=True
+ def handle_data(self,data):
+  if self._in_ld:self.scripts.append(data)
+ def handle_endtag(self,tag):
+  if tag=='script':self._in_ld=False
+
+def tags(page,name,value):
+ return [a for t,a in page.tags if t==name and (value is None or all(a.get(k)==v for k,v in value.items()))]
+
+def main():
+ errors=[]
+ def req(condition,message):
+  if not condition:errors.append(message)
+ pages={}
+ for path in PAGES:
+  s=(ROOT/path).read_text(encoding='utf-8')
+  parser=Page();parser.feed(s);pages[path]=parser
+  req(parser.heading==1,path+': needs exactly 1 H1')
+  req(len(tags(parser,'main',None))==1,path+': main landmark')
+  req(len(tags(parser,'title',None))==1,path+': title')
+  req(len(tags(parser,'meta',{'name':'description'}))==1,path+': description')
+  req(len(tags(parser,'meta',{'name':'robots'}))==1,path+': robots')
+  req('noindex' not in s.lower(),path+': indexing disabled')
+  req(len(tags(parser,'link',{'rel':'canonical'}))==1,path+': canonical')
+  req(len(tags(parser,'meta',{'property':'og:image'}))==1,path+': OG image')
+  req(len(tags(parser,'meta',{'property':'og:url'}))==1,path+': OG url')
+  req(len(parser.scripts)==1,path+': one JSON-LD block')
+  try:json.loads(parser.scripts[0])
+  except (IndexError,ValueError):errors.append(path+': bad structured data')
+  for im in parser.images:
+   req(all(k in im for k in ('src','alt','width','height')),path+': image needs alt/dimensions')
+   req((ROOT/im.get('src','')).is_file(),path+': missing image '+im.get('src',''))
+ for path,parser in pages.items():
+  for link in parser.links:
+   if link.startswith(('https://','http://','mailto:','tel:')):continue
+   part,_,fragment=link.partition('#')
+   target=part.split('?')[0] or path
+   req((ROOT/target).is_file(),path+': broken link '+link)
+   if fragment and target in pages:req(fragment in pages[target].ids,path+': bad anchor '+link)
+ base=tags(pages['index.html'],'link',{'rel':'canonical'})[0]['href']
+ expected=[base if p=='index.html' else base+p for p in PAGES]
+ for path,correct in zip(PAGES,expected):
+  req(tags(pages[path],'link',{'rel':'canonical'})[0].get('href')==correct,path+': wrong canonical URL')
+ xml=ET.parse(ROOT/'sitemap.xml').getroot()
+ locs=[n.text for n in xml.iter() if n.tag.endswith('loc')]
+ req(set(locs)==set(expected),'sitemap must list all seven canonical URLs')
+ req('janusoosthuizen2@gmail.com' in (ROOT/'assets/config.js').read_text(), 'business email missing')
+ if errors:
+  print('FAIL:')
+  for e in errors:print('  -',e)
+  raise SystemExit(1)
+ print('PASS: seven pages, metadata, JSON-LD, canonicals, sitemap, linked assets, anchors and contact email.')
+if __name__=='__main__':main()

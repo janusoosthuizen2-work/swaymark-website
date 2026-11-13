@@ -1,23 +1,27 @@
-# SWAYMARK — Digital Marketing & Website Development
+# SWAYMARK | Website Development, SEO and Digital Marketing
 
-A professional static website for SWAYMARK, founded by Janus Oosthuizen.
+Professional, fast, accessible seven-page static business website for SWAYMARK.
 
-## Local preview
+## Website
+- Public URL: https://janusoosthuizen2-work.github.io/swaymark-website/
+- Free hosting: GitHub Pages (main / root)
+- Business enquiries: janusoosthuizen2@gmail.com (public)
+- Contact form: prepares an email draft; does not send data from the site or guarantee delivery.
+- No third-party JavaScript, cookies, tracking pixels, paid fonts or advertising libraries.
+- SEO: unique metadata, canonical URLs, JSON-LD, sitemap.xml, index/follow. Search Console verification and sitemap submission still require a verified site owner.
 
-Open `index.html` directly in your browser, or run `python -m http.server 8000` and visit `http://localhost:8000`.
+## Included pages
+Home, Services, Selected Work, About, Contact, Privacy, Terms.
 
-## Important before launch
+## Work safely
+- Keep any client examples labelled honestly. Ask permission before displaying client work, logos, proprietary data or quantified results.
+- SWAYMARK is not yet confirmed as a legally available mark. Check official CIPC/company-name and trademark records before registering or investing in the brand.
+- Privacy and Terms pages are practical drafts; review for POPIA obligations and actual business processes before representing them as legal sign-off.
+- No provider can guarantee 100/100 Lighthouse in every environment, or a particular Google ranking/indexing date.
 
-1. Add an approved public business email to `assets/config.js`. The contact form uses the visitor's email application; it does **not** directly submit messages to a server.
-2. Replace `noindex,nofollow` only after the website is final and launched, by running `python tools/prepare_launch.py --url https://YOUR-EXACT-WEBSITE-URL/`.
-3. Confirm SWAYMARK brand and trademark/domain clearance, review the Privacy and Terms text, and obtain permissions for any client portfolio work.
-4. Add an actual 1200×630 OG image and update its metadata; placeholder social image references have been removed.
-5. Review each page's contact details, accessibility, SEO, device rendering and internal links.
+## Preview/test
+From this directory run `python -m http.server 8000` then browse http://127.0.0.1:8000.
+For new domain hosting, update canonical references with `python tools/prepare_launch.py --url https://youractualdomain.co.za/` after the new domain is working.
 
-## GitHub Pages
-
-In GitHub, open **Settings → Pages → Build and deployment**, choose **Deploy from a branch**, select **main** and **/(root)**, then save. The site can be hosted at `https://janusoosthuizen2-work.github.io/swaymark-website/` once Pages deployment has finished. SEO indexing remains disabled until launch preparation is done.
-
-## Services
-
-Websites, maintenance, technical SEO, digital marketing, social media content and analytics. No guaranteed ranking claims. The business is independent of personal social profiles.
+## SEO submission
+In Google Search Console create and verify the URL-prefix property `https://janusoosthuizen2-work.github.io/swaymark-website/` and submit `sitemap.xml`. The robots.txt file here is in a GitHub Pages *project directory*, not the hostname root, so Google Search Console sitemap submission is essential for straightforward discovery.
