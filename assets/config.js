@@ -1,9 +1,9 @@
 /**
- * Public contact and social settings for Swaymark. Add your approved PUBLIC business contact information before launch.
- * Do not add passwords or API secrets here: this file is public when hosted.
+ * Public contact and social settings for SWAYMARK.
+ * This file is public when hosted. Do not store passwords, tokens or private data here.
  */
 window.JANUS_CONFIG = {
-  businessEmail: '',
+  businessEmail: 'janusoosthuizen2@gmail.com',
   instagramUrl: '',
   instagramHandle: '',
   bookingUrl: ''
