@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+# Pages use noindex until their launch checklist has been completed.
