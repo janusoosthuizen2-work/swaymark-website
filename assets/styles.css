@@ -464,3 +464,6 @@ body { background: #f8f9f3; }
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
   .has-js .reveal { opacity: 1; transform: none; }
 }
+/* Direct contact links; no external resources */
+.contact-point a[href^="tel:"] { color: #175d34; font-weight: 780; font-variant-numeric: tabular-nums; }
+.footer-links a[href^="tel:"] { color: var(--lime); font-weight: 720; font-variant-numeric: tabular-nums; }

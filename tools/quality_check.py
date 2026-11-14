@@ -49,6 +49,8 @@ def main():
   req(len(tags(parser,'meta',{'name':'description'}))==1,path+': description')
   req(len(tags(parser,'meta',{'name':'robots'}))==1,path+': robots')
   req('noindex' not in s.lower(),path+': indexing disabled')
+  req('tel:0704347735' in s,path+': public phone link missing')
+  req('south africa' not in s.lower() and 'en-za' not in s.lower() and 'en_za' not in s.lower(),path+': location-specific marketing content found')
   req(len(tags(parser,'link',{'rel':'canonical'}))==1,path+': canonical')
   req(len(tags(parser,'meta',{'property':'og:image'}))==1,path+': OG image')
   req(len(tags(parser,'meta',{'property':'og:url'}))==1,path+': OG url')
