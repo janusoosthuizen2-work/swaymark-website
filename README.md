@@ -3,8 +3,11 @@
 Professional, fast, accessible seven-page static business website for SWAYMARK.
 
 ## Website
-- Public URL: https://janusoosthuizen2-work.github.io/swaymark-website/
-- Free hosting: GitHub Pages (main / root)
+- Primary public URL: https://swaymark.pages.dev/
+- Legacy site (remains online, now advertises Pages as canonical): https://janusoosthuizen2-work.github.io/swaymark-website/
+- Separate temporary Worker alias: https://swaymark.janusoosthuizen2.workers.dev/
+- Primary free hosting: Cloudflare Pages, built from GitHub main branch, repository root
+- Legacy hosting: GitHub Pages remains active for existing visitors
 - Business enquiries: janusoosthuizen2@gmail.com and 070 434 7735 (both public)
 - Contact form: prepares an email draft; does not send data from the site or guarantee delivery.
 - No third-party JavaScript, cookies, tracking pixels, paid fonts or advertising libraries.
@@ -24,4 +27,4 @@ From this directory run `python -m http.server 8000` then browse http://127.0.0.
 For new domain hosting, update canonical references with `python tools/prepare_launch.py --url https://your-actual-domain.example/` after the new domain is working.
 
 ## SEO submission
-In Google Search Console create and verify the URL-prefix property `https://janusoosthuizen2-work.github.io/swaymark-website/` and submit `sitemap.xml`. The robots.txt file here is in a GitHub Pages *project directory*, not the hostname root, so Google Search Console sitemap submission is essential for straightforward discovery.
+In Google Search Console create and verify the URL-prefix property `https://swaymark.pages.dev/` and submit `sitemap.xml`. The sitemap lists the Cloudflare Pages clean URLs (`/services`, `/work`, `/about`, `/contact`, `/privacy`, `/terms`). The Pages root robots.txt advertises the sitemap. This is a migration from an already-indexed GitHub Pages site; verify indexing and canonical selection over time, and arrange server-side redirects from any old public address where feasible.

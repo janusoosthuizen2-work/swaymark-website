@@ -68,12 +68,14 @@ def main():
    req((ROOT/target).is_file(),path+': broken link '+link)
    if fragment and target in pages:req(fragment in pages[target].ids,path+': bad anchor '+link)
  base=tags(pages['index.html'],'link',{'rel':'canonical'})[0]['href']
- expected=[base if p=='index.html' else base+p for p in PAGES]
+ expected=[base if p=='index.html' else base+p.removesuffix('.html') for p in PAGES]
  for path,correct in zip(PAGES,expected):
   req(tags(pages[path],'link',{'rel':'canonical'})[0].get('href')==correct,path+': wrong canonical URL')
  xml=ET.parse(ROOT/'sitemap.xml').getroot()
  locs=[n.text for n in xml.iter() if n.tag.endswith('loc')]
  req(set(locs)==set(expected),'sitemap must list all seven canonical URLs')
+ req((ROOT/'robots.txt').read_text().count('Sitemap: '+base+'sitemap.xml')==1,'robots.txt must advertise primary sitemap')
+ req(all('janusoosthuizen2-work.github.io/swaymark-website/' not in (ROOT/p).read_text() for p in PAGES),'old GitHub URL remains in page metadata')
  req('janusoosthuizen2@gmail.com' in (ROOT/'assets/config.js').read_text(), 'business email missing')
  if errors:
   print('FAIL:')

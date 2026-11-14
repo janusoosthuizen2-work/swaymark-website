@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Update absolute URL references after purchasing a custom domain.
-Usage: python tools/prepare_launch.py --url https://www.yourdomain.co.za/
+"""Update absolute URL references after switching to a new live domain.
+Usage: python tools/prepare_launch.py --url https://www.your-published-domain.example/
 Run this only when the destination URL is already configured to serve the website.
 """
 import argparse, json, re
@@ -8,7 +8,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 from html import escape
 ROOT=Path(__file__).resolve().parent.parent
-OLD="https://janusoosthuizen2-work.github.io/swaymark-website/"
+OLD="https://swaymark.pages.dev/"
 PAGES=["index.html","services.html","work.html","about.html","contact.html","privacy.html","terms.html"]
 def main():
     parser=argparse.ArgumentParser()
@@ -19,7 +19,7 @@ def main():
     if parsed.scheme!="https" or not parsed.netloc or parsed.query or parsed.fragment or ".." in parsed.path:
         parser.error("A valid published HTTPS website URL is required.")
     if "yourdomain" in base or "example.com" in base: parser.error("Use your actual published URL.")
-    urls=[base+("" if p=="index.html" else p) for p in PAGES]
+    urls=[base+("" if p=="index.html" else p.removesuffix(".html")) for p in PAGES]
     for p in PAGES:
         path=ROOT/p
         html=path.read_text(encoding="utf-8").replace(OLD,base)
