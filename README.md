@@ -14,7 +14,7 @@ Professional, fast, accessible seven-page static business website for SWAYMARK.
 - SEO: unique metadata, canonical URLs, JSON-LD, sitemap.xml, index/follow. Search Console verification and sitemap submission still require a verified site owner.
 
 ## Included pages
-Seven indexable pages: Home, Services, Selected Work, About, Contact, Privacy, Terms. One non-indexable form confirmation page: Thanks.
+Seven indexable pages: Home, Services, Selected Work, About, Contact, Privacy, Terms. One non-indexable form confirmation page: Thanks. Selected Work leads with the actual live SWAYMARK site, then distinguishes anonymised operating experience from uncommissioned illustrative design concepts.
 
 ## Work safely
 - Keep any client examples labelled honestly. Ask permission before displaying client work, logos, proprietary data or quantified results.

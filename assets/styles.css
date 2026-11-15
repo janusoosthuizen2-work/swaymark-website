@@ -472,3 +472,36 @@ body { background: #f8f9f3; }
 .form-hp { position: absolute !important; left: -10000px !important; top: auto !important; width: 1px !important; height: 1px !important; overflow: hidden !important; pointer-events: none !important; }
 .form-privacy-note { margin-top: 22px; font-size: .9rem; line-height: 1.7; }
 .form-privacy-note a { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Selected Work proof and clear service offerings — lightweight, responsive */
+.project-visual.signature { background: radial-gradient(circle at 82% 20%, #e5f3ba 0, #c5dda6 30%, #abc5a0 100%); }
+.site-proof { transform: rotate(-1.2deg); border-color: #12332a; box-shadow: 14px 18px 0 rgba(16,51,37,.12); }
+.site-proof .concept-nav { color: #244034; letter-spacing: .06em; }
+.site-proof .concept-nav span:last-child { color: #176037; }
+.concept-content.signature-screen { background: radial-gradient(circle at 85% 25%, #27503e, #0b1615 66%); color: #f5f9ed; min-height: 260px; }
+.signature-screen strong { font-size: clamp(2.25rem, 4vw, 4.3rem); }
+.signature-screen small:first-child { color: #c5e99f; font-weight: 750; letter-spacing: .08em; }
+.project-copy .project-proof { color: #475f50; font-size: .87rem; padding: 15px 17px; margin: 0 0 24px; background: #f3f6ee; border-left: 3px solid #82ae50; border-radius: 0 9px 9px 0; }
+.project-copy .project-proof strong { color: #254331; }
+.project-copy > .text-link { margin-top: 5px; }
+.portfolio-disclosure { margin-top: 28px; padding: clamp(22px,4vw,32px); background: #edf3e7; border: 1px solid #cad7c4; border-radius: 20px; }
+.portfolio-disclosure strong { font-size: 1.06rem; color: #203b2b; }
+.portfolio-disclosure p { color: #52685b; line-height: 1.75; max-width: 920px; margin: 11px 0 18px; }
+.service-starts { background: #eef3e8; }
+.service-starts .offer { background: #fffefa; }
+.service-starts .offer:nth-child(2) { background: #e4eed3; }
+.service-starts .offer h3 { margin-top: 18px; }
+.service-starts .offer p { margin-top: 0; }
+.service-scope-note { color: #506653; font-size: .9rem; line-height: 1.8; margin: 23px 0 0; max-width: 950px; }
+.service-scope-note strong { color: #1d432b; }
+.service-example-link { margin-top: 15px; font-size: .92rem; color: #506653; }
+.service-example-link .text-link { display: inline-flex; margin-left: 5px; }
+@media (max-width: 850px) {
+  .service-starts .offer-grid { grid-template-columns: 1fr; }
+  .service-starts .offer { min-height: auto; }
+}
+@media (max-width: 700px) {
+  .project-visual.signature { padding: 26px; }
+  .concept-content.signature-screen { min-height: 225px; }
+  .service-example-link .text-link { margin: 10px 0 0; }
+}
