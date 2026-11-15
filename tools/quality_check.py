@@ -81,6 +81,11 @@ def main():
    if link.startswith(('https://','http://','mailto:','tel:')):continue
    part,_,fragment=link.partition('#')
    target=part.split('?')[0] or path
+   # Cloudflare Pages redirects .html pages to clean canonical routes.
+   # Source anchors may link directly to those clean routes.
+   if target.startswith('/'):
+    route=target.lstrip('/')
+    target='index.html' if not route else (route+'.html' if route+'.html' in pages else route)
    req((ROOT/target).is_file(),path+': broken link '+link)
    if fragment and target in pages:req(fragment in pages[target].ids,path+': bad anchor '+link)
  base=tags(pages['index.html'],'link',{'rel':'canonical'})[0]['href']
@@ -122,7 +127,7 @@ def main():
  services=(ROOT/'services.html').read_text()
  req('Website launch' in services and 'SEO &amp; site improvements' in services and 'Ongoing digital support' in services,'clear service examples missing')
  req('No subscription or paid work starts just by sending an enquiry.' in services,'service scope caveat missing')
- req('href="work.html#swaymark-launch"' in services,'service to live-project link missing')
+ req('href="work.html#swaymark-launch"' in services or 'href="/work#swaymark-launch"' in services,'service to live-project link missing')
  if errors:
   print('FAIL:')
   for e in errors:print('  -',e)
