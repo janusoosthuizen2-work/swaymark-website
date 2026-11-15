@@ -467,3 +467,8 @@ body { background: #f8f9f3; }
 /* Direct contact links; no external resources */
 .contact-point a[href^="tel:"] { color: #175d34; font-weight: 780; font-variant-numeric: tabular-nums; }
 .footer-links a[href^="tel:"] { color: var(--lime); font-weight: 720; font-variant-numeric: tabular-nums; }
+
+/* Contact-form spam trap and privacy notice; preserves existing design */
+.form-hp { position: absolute !important; left: -10000px !important; top: auto !important; width: 1px !important; height: 1px !important; overflow: hidden !important; pointer-events: none !important; }
+.form-privacy-note { margin-top: 22px; font-size: .9rem; line-height: 1.7; }
+.form-privacy-note a { text-decoration: underline; text-underline-offset: 3px; }

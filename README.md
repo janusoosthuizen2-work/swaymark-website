@@ -9,12 +9,13 @@ Professional, fast, accessible seven-page static business website for SWAYMARK.
 - Primary free hosting: Cloudflare Pages, built from GitHub main branch, repository root
 - Legacy hosting: GitHub Pages remains active for existing visitors
 - Business enquiries: janusoosthuizen2@gmail.com and 070 434 7735 (both public)
-- Contact form: prepares an email draft; does not send data from the site or guarantee delivery.
-- No third-party JavaScript, cookies, tracking pixels, paid fonts or advertising libraries.
+- Contact form: native HTTPS POST to FormSubmit.co (free external service), with default reCAPTCHA and a hidden spam honeypot. Submission is emailed to janusoosthuizen2@gmail.com **only after one-time email activation**. No custom server/API credentials are stored in client code. FormSubmit archives submissions for 30 days according to its documentation.
+- Form handling: branded `thanks.html` after a completed submission; do not promise delivery before activation and successful delivery test.
+- No advertising trackers, analytics, paid fonts or third-party JavaScript on the SWAYMARK pages. Submitting the form transfers data to FormSubmit; its reCAPTCHA challenge may involve Google's cookies/technical processing.
 - SEO: unique metadata, canonical URLs, JSON-LD, sitemap.xml, index/follow. Search Console verification and sitemap submission still require a verified site owner.
 
 ## Included pages
-Home, Services, Selected Work, About, Contact, Privacy, Terms.
+Seven indexable pages: Home, Services, Selected Work, About, Contact, Privacy, Terms. One non-indexable form confirmation page: Thanks.
 
 ## Work safely
 - Keep any client examples labelled honestly. Ask permission before displaying client work, logos, proprietary data or quantified results.
@@ -25,6 +26,12 @@ Home, Services, Selected Work, About, Contact, Privacy, Terms.
 ## Preview/test
 From this directory run `python -m http.server 8000` then browse http://127.0.0.1:8000.
 For new domain hosting, update canonical references with `python tools/prepare_launch.py --url https://your-actual-domain.example/` after the new domain is working.
+
+## Form activation
+1. Open https://swaymark.pages.dev/contact and submit one **test enquiry** (without real customer data).
+2. Open the confirmation email from FormSubmit in janusoosthuizen2@gmail.com and activate the form. Nothing is delivered until the mailbox owner confirms.
+3. Submit a second test and verify the new email arrives. Check spam/junk if necessary. If unverified, use the visible email/phone links as fallback.
+4. For a different recipient address, change the action attribute in contact.html and reactivate it; FormSubmit verifies the new address.
 
 ## SEO submission
 In Google Search Console create and verify the URL-prefix property `https://swaymark.pages.dev/` and submit `sitemap.xml`. The sitemap lists the Cloudflare Pages clean URLs (`/services`, `/work`, `/about`, `/contact`, `/privacy`, `/terms`). The Pages root robots.txt advertises the sitemap. This is a migration from an already-indexed GitHub Pages site; verify indexing and canonical selection over time, and arrange server-side redirects from any old public address where feasible.
