@@ -19,7 +19,7 @@ Seven indexable pages: Home, Services, Selected Work, About, Contact, Privacy, T
 ## Work safely
 - Keep any client examples labelled honestly. Ask permission before displaying client work, logos, proprietary data or quantified results.
 - SWAYMARK is not yet confirmed as a legally available mark. Check the relevant company-registration and trademark records wherever you intend to operate before registering or investing in the brand.
-- Privacy and Terms describe the current individual operator, actual form providers and pre-contract website use. They are working drafts, not a substitute for local legal review. Refer to `docs/LEGAL_LAUNCH_CHECKLIST.md` for unresolved requirements.
+- The public Privacy and Terms pages describe the current operator and enquiry process. They are not a substitute for professional legal review before paid engagements.
 - No provider can guarantee 100/100 Lighthouse in every environment, or a particular Google ranking/indexing date.
 
 ## Preview/test
@@ -29,8 +29,7 @@ For new domain hosting, update canonical references with `python tools/prepare_l
 ## Business and legal status
 - SWAYMARK is currently a trading name operated by Janus Oosthuizen as an individual in South Africa, not a registered company. Do not claim (Pty) Ltd or invent company/VAT numbers.
 - Site only accepts enquiries, not paid online orders or binding contracts. Agree client scope and commercial terms in a separate signed or accepted written agreement.
-- The correct business physical/service address, Information Officer obligations, and company/trademark clearance still need owner follow-up.
-- See `docs/LEGAL_LAUNCH_CHECKLIST.md` for sources, completed items and owner actions.
+- Before paid client projects or incorporation, confirm appropriate business contact details, regulatory obligations, name clearance and a separate written service agreement.
 
 ## SEO submission
 In Google Search Console create and verify the URL-prefix property `https://swaymark.pages.dev/` and submit `sitemap.xml`. The sitemap lists the Cloudflare Pages clean URLs (`/services`, `/work`, `/about`, `/contact`, `/privacy`, `/terms`). The Pages root robots.txt advertises the sitemap. This is a migration from an already-indexed GitHub Pages site; verify indexing and canonical selection over time, and arrange server-side redirects from any old public address where feasible.

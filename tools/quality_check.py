@@ -115,7 +115,6 @@ def main():
  req('no online checkout' in terms.lower(),'terms must not imply checkout exists')
  req('separate written agreement' in terms,'terms must distinguish website from service agreements')
  req(contact.find('Before you send:') != -1 and contact.find('Before you send:') < contact.find('>Send enquiry'), 'privacy notice must appear before submit button')
- req((ROOT/'docs/LEGAL_LAUNCH_CHECKLIST.md').is_file(),'internal legal readiness checklist missing')
  if errors:
   print('FAIL:')
   for e in errors:print('  -',e)
