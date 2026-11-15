@@ -4,6 +4,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlparse, unquote
 import json
+import re
 import xml.etree.ElementTree as ET
 
 ROOT=Path(__file__).resolve().parent.parent
@@ -40,13 +41,26 @@ def main():
  def req(condition,message):
   if not condition:errors.append(message)
  pages={}
+ titles=set()
+ descriptions=set()
  for path in PAGES:
   s=(ROOT/path).read_text(encoding='utf-8')
   parser=Page();parser.feed(s);pages[path]=parser
   req(parser.heading==1,path+': needs exactly 1 H1')
   req(len(tags(parser,'main',None))==1,path+': main landmark')
   req(len(tags(parser,'title',None))==1,path+': title')
-  req(len(tags(parser,'meta',{'name':'description'}))==1,path+': description')
+  desc_tags=tags(parser,'meta',{'name':'description'})
+  req(len(desc_tags)==1,path+': description')
+  if desc_tags:
+   desc=desc_tags[0].get('content','').strip()
+   req(70<=len(desc)<=170,path+': SEO description should be concise (70-170 chars)')
+   req(desc not in descriptions,path+': duplicate SEO description')
+   descriptions.add(desc)
+  title_match=re.search(r'<title>(.*?)</title>',s,re.DOTALL|re.IGNORECASE)
+  if title_match:
+   title=title_match.group(1).strip()
+   req(title not in titles,path+': duplicate SEO title')
+   titles.add(title)
   req(len(tags(parser,'meta',{'name':'robots'}))==1,path+': robots')
   req('noindex' not in s.lower(),path+': indexing disabled')
   req('tel:0704347735' in s,path+': public phone link missing')
