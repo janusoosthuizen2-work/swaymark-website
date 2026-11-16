@@ -1,5 +1,5 @@
 -- SWAYMARK Business module for the EXISTING Janus Personal Finance Supabase project.
--- Project: janus-personal-finance (glopetsbjaoxutjghgdo).
+-- Project: Janus Personal Finance (use its project ID from your authenticated dashboard).
 -- ADDITIVE ONLY: do not drop, rename, or alter any existing personal finance tables.
 -- Stop and inspect the schema first. Never run if public.swaymark_items already exists.
 -- Apply only after the finance database is reachable and a recovery point exists.
