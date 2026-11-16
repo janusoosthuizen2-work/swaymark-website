@@ -1,0 +1,18 @@
+/* Secure workspace layer - reuses SWAYMARK Business Hub styling */
+.auth-gate{position:fixed;inset:0;z-index:200;background:#0b1615;display:grid;place-items:center;padding:25px;overflow:auto}
+.auth-gate[hidden],.auth-setup[hidden],.auth-form[hidden]{display:none!important}
+.auth-background{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 42% 60% at 78% 16%,rgba(213,251,97,.15),transparent 75%),radial-gradient(ellipse 40% 40% at 20% 90%,rgba(119,157,105,.13),transparent 70%)}
+.auth-card{position:relative;width:min(100%,485px);background:#fffefa;border-radius:24px;padding:36px 39px;box-shadow:0 24px 70px #0005;max-height:95vh;overflow:auto}
+.auth-brand{display:flex;align-items:center;gap:12px;margin-bottom:38px}
+.auth-brand img{width:51px;height:51px;object-fit:contain}
+.auth-brand span{font-size:15px;letter-spacing:.14em;font-weight:850}.auth-brand small{display:block;font-size:9px;letter-spacing:.17em;color:#738174;margin-top:4px}
+.auth-card h1{font-size:clamp(31px,4vw,45px);letter-spacing:-.055em;line-height:1.1;margin:12px 0 15px}.auth-card h1 em{font-style:italic;font-weight:400;font-family:Georgia,serif;color:#557b44}
+.auth-lead{color:#6d7d70;font-size:13px;line-height:1.75;margin:0 0 26px}
+.auth-form{display:grid;gap:9px}.auth-form label{font-size:12px;font-weight:800;margin-top:8px}.auth-form input{height:47px;border-radius:12px;border:1px solid #d9e3d5;background:white;color:#0b1615;padding:12px 14px;outline-color:#93bc4e}
+.auth-form button{margin-top:16px;min-height:48px;font-size:13px;justify-content:space-between}
+#authError{font-size:12px;color:#ad493e;min-height:18px;margin:4px 0 0}
+.auth-foot{border-top:1px solid #e1e9db;padding-top:18px;margin:24px 0 0;font-size:11px;color:#7d8c7e;line-height:1.8}.auth-foot a{color:#3b6140;font-weight:800}
+.auth-setup{background:#f3f8e5;border:1px solid #dbe8bb;border-radius:14px;padding:17px;color:#334c32}.auth-setup p{font-size:12px;margin:9px 0;line-height:1.65}.auth-demo-link{display:inline-block;color:#3b663f;font-weight:800;font-size:12px;margin-top:10px;text-decoration:underline}
+.app-shell.locked{pointer-events:none;user-select:none;filter:blur(3px)}.login-status{color:#708975}
+.setup-note{padding:20px;border:1px solid #dee8d7;border-radius:14px;background:#f5f9ed;color:#465a49}
+@media(max-width:520px){.auth-card{padding:29px 22px;border-radius:19px}.auth-brand{margin-bottom:27px}.auth-gate{padding:12px}}

@@ -33,3 +33,6 @@ For new domain hosting, update canonical references with `python tools/prepare_l
 
 ## SEO submission
 In Google Search Console create and verify the URL-prefix property `https://swaymark.pages.dev/` and submit `sitemap.xml`. The sitemap lists the Cloudflare Pages clean URLs (`/services`, `/work`, `/about`, `/contact`, `/privacy`, `/terms`). The Pages root robots.txt advertises the sitemap. This is a migration from an already-indexed GitHub Pages site; verify indexing and canonical selection over time, and arrange server-side redirects from any old public address where feasible.
+
+## SWAYMARK Business Hub
+The working device-only prototype is at https://swaymark.pages.dev/hub/. The new independent cloud app is at https://swaymark.pages.dev/app/ and requires a separate SWAYMARK-owned Supabase project before real use. See app/README.md for setup and security requirements. No Clean Carpets & Pest Control Perth database is connected to the SWAYMARK app.
