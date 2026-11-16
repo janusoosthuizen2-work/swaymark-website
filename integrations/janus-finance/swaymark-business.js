@@ -310,8 +310,9 @@
   function printQuote(id){
     const q=store.quotes.find(x=>x.id===id);if(!q)return;
     const client=lookup("clients",q.clientId);
-    const w=window.open("","_blank","noopener,noreferrer,width=820,height=720");
+    const w=window.open("","_blank","width=820,height=720");
     if(!w){toast("Allow pop-ups to print a quote.");return;}
+    w.opener=null;
     const doc='<html><head><title>SWAYMARK Project Quote</title><meta charset="utf-8"><style>body{font:15px/1.7 Arial,sans-serif;padding:38px;color:#111}h1{letter-spacing:.12em}small{color:#666}.amount{font-size:31px;font-weight:bold;text-align:right}.line{padding:13px 0;border-bottom:1px solid #ddd}em{font-size:12px;color:#777}</style></head><body><h1>SWAYMARK</h1><p>Project quote</p><div class="line"><b>Client:</b> '+htmlSafe(client)+'</div><div class="line"><b>Project:</b> '+htmlSafe(q.title)+'</div><div class="line"><b>Valid until:</b> '+htmlSafe(dateLabel(q.validUntil))+'</div><h3>Proposed scope</h3><p>'+htmlSafe(q.notes||"Scope to be agreed in writing.").replace(/\n/g,"<br>")+'</p><p class="amount">'+htmlSafe(money(q.amount))+'</p><em>Draft quote, not a tax invoice. Final scope, taxes and commercial terms require a written agreement.</em></body></html>';
     w.document.open();w.document.write(doc);w.document.close();w.focus();w.print();
   }
