@@ -1,0 +1,19 @@
+{
+  "id": "/hub/",
+  "name": "SWAYMARK Business Hub",
+  "short_name": "SWAYMARK Hub",
+  "description": "SWAYMARK business management prototype",
+  "start_url": "/hub/",
+  "scope": "/hub/",
+  "display": "standalone",
+  "background_color": "#f7f7f1",
+  "theme_color": "#0b1615",
+  "icons": [
+    {
+      "src": "/assets/favicon.png",
+      "sizes": "64x64",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

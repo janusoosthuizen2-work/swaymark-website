@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b1615">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="description" content="SWAYMARK Business Hub prototype. Private-to-this-browser demonstration workspace.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';">
+<title>Business Hub | SWAYMARK</title>
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="manifest" href="/hub/manifest.webmanifest">
+<link rel="stylesheet" href="/hub/app.css">
+<script src="/hub/app.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#workspace">Skip to workspace</a>
+<div class="app-shell">
+  <aside class="sidebar" id="sidePanel" aria-label="Workspace navigation">
+    <div class="sidebar-top">
+      <a class="brand" href="/" aria-label="SWAYMARK public website">
+        <img src="/assets/logo-mark.webp" width="46" height="46" alt="">
+        <span><strong>SWAYMARK</strong><small>BUSINESS HUB</small></span>
+      </a>
+      <button id="closeNav" class="icon-button sidebar-close" aria-label="Close navigation">×</button>
+    </div>
+    <div class="workspace-switch"><span class="workspace-avatar">S</span><span><strong>My workspace</strong><small>Independent studio</small></span><span class="workspace-dot" aria-hidden="true"></span></div>
+    <nav class="nav" aria-label="Main">
+      <p class="nav-label">OVERVIEW</p>
+      <a class="nav-link active" href="#dashboard" data-view="dashboard"><span class="nav-icon">◫</span>Dashboard</a>
+      <p class="nav-label">YOUR BUSINESS</p>
+      <a class="nav-link" href="#enquiries" data-view="enquiries"><span class="nav-icon">↗</span>Enquiries <span class="nav-count" id="enquiryCount"></span></a>
+      <a class="nav-link" href="#clients" data-view="clients"><span class="nav-icon">◉</span>Clients</a>
+      <a class="nav-link" href="#quotes" data-view="quotes"><span class="nav-icon">▤</span>Quotes</a>
+      <a class="nav-link" href="#bookings" data-view="bookings"><span class="nav-icon">▦</span>Bookings</a>
+      <a class="nav-link" href="#projects" data-view="projects"><span class="nav-icon">◇</span>Projects</a>
+      <a class="nav-link" href="#tasks" data-view="tasks"><span class="nav-icon">☑</span>Tasks</a>
+      <a class="nav-link" href="#finance" data-view="finance"><span class="nav-icon">◎</span>Finance</a>
+      <p class="nav-label">WORKSPACE</p>
+      <a class="nav-link" href="#settings" data-view="settings"><span class="nav-icon">⚙</span>Settings &amp; backups</a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a class="site-link" href="/" target="_blank" rel="noopener">View public website <span aria-hidden="true">↗</span></a>
+      <div class="mode-card"><span class="mode-dot"></span><strong>Prototype mode</strong><p>Everything stays in this browser. Cloud sync and login are not connected yet.</p></div>
+    </div>
+  </aside>
+  <div class="sidebar-scrim" id="sideScrim"></div>
+  <main class="main" id="workspace">
+    <header class="topbar">
+      <div class="topbar-start"><button id="navToggle" class="icon-button menu-toggle" aria-controls="sidePanel" aria-expanded="false" aria-label="Open navigation">☰</button><span class="breadcrumb">Workspace <span>/</span> <strong id="breadcrumbCurrent">Dashboard</strong></span></div>
+      <div class="topbar-end"><span class="today" id="todayDisplay"></span><span class="local-tag"><span></span> Local only</span><button type="button" class="btn btn-outline top-export" id="topExport">Export backup</button><button type="button" class="btn btn-lime" data-action="new" data-type="enquiries">+ New enquiry</button></div>
+    </header>
+    <div class="main-inner">
+      <div class="page-intro"><div><span class="eyebrow">SWAYMARK / WORKSPACE</span><h1 id="viewTitle">Your business, in one place.</h1><p id="viewDescription">A clearer view of your enquiries, bookings, client projects and daily priorities.</p></div><span class="edition">BUSINESS HUB <em>01</em></span></div>
+      <div class="prototype-alert" role="note"><span class="notice-icon">i</span><p><strong>Working prototype — not a secure client database.</strong> Records are saved only in this browser, without login or syncing. Please use sample information only until a protected backend is connected.</p><button type="button" class="alert-link" data-action="goto" data-view="settings">Backups &amp; info ↗</button></div>
+      <div class="toolbar" id="listToolbar" hidden><label class="search"><span class="search-icon" aria-hidden="true">⌕</span><span class="sr-only">Search records</span><input id="searchInput" type="search" autocomplete="off" placeholder="Search this section"></label><div class="toolbar-actions"><label for="statusFilter" class="sr-only">Filter records</label><select id="statusFilter" aria-label="Filter by status"></select><button type="button" class="btn btn-dark" id="sectionAdd">+ Add new</button></div></div>
+      <div id="screen" aria-live="off"></div>
+    </div>
+  </main>
+</div>
+<dialog id="editor" class="editor" aria-labelledby="modalHeading">
+  <div class="dialog-head"><div><span class="eyebrow">SWAYMARK / RECORD</span><h2 id="modalHeading">New record</h2><p id="modalDescription"></p></div><button type="button" class="icon-button" id="modalClose" aria-label="Close">×</button></div>
+  <form id="recordForm"><div id="recordFields" class="form-grid"></div><div class="dialog-actions"><button type="button" class="btn btn-outline" id="cancelEditor">Cancel</button><button type="submit" class="btn btn-dark" id="saveRecord">Save record</button></div></form>
+</dialog>
+<div id="printArea" class="print-area" aria-hidden="true"></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<noscript><p class="noscript">Enable JavaScript to use the SWAYMARK Business Hub prototype.</p></noscript>
+</body>
+</html>
