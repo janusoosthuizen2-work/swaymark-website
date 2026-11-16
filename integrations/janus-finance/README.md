@@ -1,6 +1,6 @@
 # SWAYMARK Business inside Janus Personal Finance
 
-Status on 16 November 2026: **preview deployed; NOT enabled in the stable finance app.**
+Status on 16 November 2026: **database created and RLS verified; preview deployed; NOT enabled in the stable finance app.**
 
 The requested result is ONE finance app with a new **SWAYMARK Business** menu. Keep existing Personal Finance accounts, transactions, budgets, reports, and features unchanged.
 
@@ -15,20 +15,29 @@ The requested result is ONE finance app with a new **SWAYMARK Business** menu. K
 
 Dashboard, Enquiries, Clients, Quotes, Bookings, Projects, Tasks and Business finance. Add, edit and delete records, complete/reopen tasks, convert enquiries into clients, print draft quotes and search records. Business finance is a separate register and must not alter personal account balances.
 
-## Database connectivity blocker
+## Database connection and migration verified
 
-The finance project summary reports ACTIVE_HEALTHY, but SQL calls and table inspection repeatedly failed: Connection terminated due to connection timeout. Health and security advisors reported the project was hibernated. An attempted project restore reported that it was already active.
+A manual SELECT 1 in Supabase SQL Editor succeeded. Subsequent connector calls confirmed the existing 19 personal finance tables and the absence of public.swaymark_items before migration.
 
-No database migrations were run. No finance records or tables have been changed.
+Migration create_swaymark_business_items_separate succeeded, adding exactly one table public.swaymark_items to the same Janus Personal Finance Supabase project, with no modifications to existing finance tables.
+
+Verification:
+- All existing 19 public personal finance tables remain present with RLS enabled.
+- New public.swaymark_items table has RLS enabled and exactly four access policies: SELECT, INSERT, UPDATE and DELETE, all scoped by authenticated user ID.
+- Anonymous role has no SELECT or INSERT privileges. Authenticated role has the expected table permissions.
+- Ownership isolation tested through a transaction: the owner could create/read a temporary business record, another identity could not see it, and the transaction was rolled back. Business records remain empty.
+- Supabase Security Advisor reported only an unrelated leaked-password-protection warning for the shared Auth configuration. No new table warning was reported.
+
+No finance records, projects, accounts, budgets or tax tables were modified, deleted or migrated.
 
 ## Checklist before activation
 
-1. In the Janus Personal Finance Supabase project, confirm the Database and SQL Editor are working, including a harmless SELECT 1 query. Check Database Reports and Health if not. Do not restart or reset the finance project without understanding effects.
-2. Verify public.swaymark_items does not already exist. Confirm the finance data has an available backup/recovery plan.
-3. Apply business-tables.sql only in the Janus Personal Finance project. Never use Clean Carpets & Pest Control Perth's backend.
-4. Confirm public.swaymark_items is exposed to the Data API for authenticated users; it must not be accessible to anonymous visitors. Validate four owner-based RLS policies and grants.
-5. Test two distinct signed-in users: each can access their own business records and cannot see or edit the other's.
-6. Test preview asset responses and load the new preview release in a safe test launcher. Check every new business view, login/logout and all existing personal finance features.
+1. Business table migration and RLS checks are completed. Ensure the Data API can access this table as a logged-in user in the browser. Anonymous direct access must fail.
+2. Transaction-level simulated-user SELECT/INSERT isolation tests passed; repeat with two real authenticated sessions before handling client data.
+3. Test that the business module loads inside the preview finance launcher, using the current finance app's existing authenticated context.
+4. Confirm that the stable finance release works exactly as before. The current stable function has not changed.
+5. Check Supabase Auth leaked-password protection settings where available, and ensure the shared project's recovery/backup plan is documented.
+6. Test preview asset responses and all seven SWAYMARK sections in a browser, including mobile.
 7. Promote only after full QA, using a new stable version number and keeping the previous stable finance release available for rollback.
 8. Update SWAYMARK's public privacy notice and test a protected website submission endpoint before linking the contact form. The current working FormSubmit email delivery must remain intact until that is done.
 
