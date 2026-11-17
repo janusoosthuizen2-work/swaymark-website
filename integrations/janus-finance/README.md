@@ -1,57 +1,58 @@
-# SWAYMARK Business inside Janus Personal Finance
+# SWAYMARK Business inside Janus Personal Finance Hub
 
-Status on 16 November 2026: **database created and RLS verified; preview deployed; NOT enabled in the stable finance app.**
+## Release status — 17 November 2026
 
-The requested result is ONE finance app with a new **SWAYMARK Business** menu. Keep existing Personal Finance accounts, transactions, budgets, reports, and features unchanged.
+**Stable server release 1.3.1 is published.** The original Windows FinanceHub launcher automatically checks the existing \`personal-finance-release\` update feed when opened. The stable release adds a **SWAYMARK Business** section without replacing the desktop executable.
 
-## Prepared files
+The previous stable 1.3.0 release has been cloned to \`personal-finance-rollback-v130\`, with a separate route, as a rollback source. The separate preview feed \`personal-finance-preview\` also remains available.
 
-- swaymark-business.js: an enhancement that inserts a SWAYMARK Business navigation item into the existing app, reusing its authenticated Supabase API context and current page host. No second app login is needed.
-- swaymark-business.css: namespaced styles for the business workspace and its editor, avoiding changes to the existing finance design.
-- business-tables.sql: an additive table public.swaymark_items with strict per-user Row Level Security, no anonymous access and no changes to existing finance tables.
-- A new Supabase Edge Function named personal-finance-swaymark-preview was deployed, cloned from finance release 1.3.0, with preview manifest version 1.3.1 and the new module appended to the preview app.js and style.css responses. The live personal-finance-release function was not changed.
+**Not yet completed:** The Windows UI has not been exercised interactively in the user's own desktop environment. The public SWAYMARK website's contact form still emails enquiries; automatic form-to-app delivery remains inactive. Use a sample business record to verify the menu and sync before entering real client data.
 
-## Business features
+## Existing features preserved
 
-Dashboard, Enquiries, Clients, Quotes, Bookings, Projects, Tasks and Business finance. Add, edit and delete records, complete/reopen tasks, convert enquiries into clients, print draft quotes and search records. Business finance is a separate register and must not alter personal account balances.
+This integration does not touch the existing personal finance tables or change their policies. The 19 original public finance tables were verified present after adding the SWAYMARK table. Finance functions, accounts, transactions, budgets, recurring entries, taxes and reports keep their existing server code.
 
-## Database connection and migration verified
+The Janus Personal Finance database is a shared Supabase **project**, but SWAYMARK uses only a separate \`public.swaymark_items\` table with owner-based row-level security. This project is not connected to Clean Carpets & Pest Control Perth.
 
-A manual SELECT 1 in Supabase SQL Editor succeeded. Subsequent connector calls confirmed the existing 19 personal finance tables and the absence of public.swaymark_items before migration.
+## What the business section includes
 
-Migration create_swaymark_business_items_separate succeeded, adding exactly one table public.swaymark_items to the same Janus Personal Finance Supabase project, with no modifications to existing finance tables.
+Dashboard, Enquiries, Clients, Quotes, Bookings, Projects, Tasks and Business finance. Includes create/edit/delete, complete/reopen tasks, convert enquiry into client, search and draft quote printing. The Business finance register **does not change personal account balances**.
 
-Verification:
-- All existing 19 public personal finance tables remain present with RLS enabled.
-- New public.swaymark_items table has RLS enabled and exactly four access policies: SELECT, INSERT, UPDATE and DELETE, all scoped by authenticated user ID.
-- Anonymous role has no SELECT or INSERT privileges. Authenticated role has the expected table permissions.
-- Ownership isolation tested through a transaction: the owner could create/read a temporary business record, another identity could not see it, and the transaction was rolled back. Business records remain empty.
-- Supabase Security Advisor reported only an unrelated leaked-password-protection warning for the shared Auth configuration. No new table warning was reported.
+## Source files
 
-No finance records, projects, accounts, budgets or tax tables were modified, deleted or migrated.
+- \`swaymark-business.js\`: app extension, inserted into the latest stable Finance Hub app.js response, reusing the existing signed-in context \`window.__financeHub\`
+- \`swaymark-business.css\`: isolated business styling appended to stable style.css
+- \`business-tables.sql\`: migration that was applied to the existing Janus Personal Finance Supabase project
 
-## Checklist before activation
+The desktop launcher binary is unchanged and retains the normal stable release feed.
 
-1. Business table migration and RLS checks are completed. Ensure the Data API can access this table as a logged-in user in the browser. Anonymous direct access must fail.
-2. Transaction-level simulated-user SELECT/INSERT isolation tests passed; repeat with two real authenticated sessions before handling client data.
-3. Test that the business module loads inside the preview finance launcher, using the current finance app's existing authenticated context.
-4. Confirm that the stable finance release works exactly as before. The current stable function has not changed.
-5. Check Supabase Auth leaked-password protection settings where available, and ensure the shared project's recovery/backup plan is documented.
-6. Test preview asset responses and all seven SWAYMARK sections in a browser, including mobile.
-7. Promote only after full QA, using a new stable version number and keeping the previous stable finance release available for rollback.
-8. Update SWAYMARK's public privacy notice and test a protected website submission endpoint before linking the contact form. The current working FormSubmit email delivery must remain intact until that is done.
+## Verified on release 1.3.1
 
-## Security model
+- Database migration succeeded: only \`public.swaymark_items\` was added; 19 other public finance tables remain
+- RLS enabled, four owner-scoped policies for SELECT/INSERT/UPDATE/DELETE
+- No direct anonymous SELECT or INSERT table privileges
+- Simulated session isolation: owner access succeeded, a different identity could not see the owner's record; test transaction rolled back
+- Finance base JavaScript and business extension passed static syntax checks (module \`import.meta\` normalized for parser check)
+- Stable version manifest serves **1.3.1 / stable**, preview serves 1.3.1 / preview
+- Stable CSS serves the appended SWAYMARK styles
+- 1.3.0 rollback feed serves the previous version manifest
+- New table contains zero customer records immediately after migration
+- Release was deployed with the same JWT-verification configuration as the existing public asset-serving function; the function does not accept data writes
 
-- Business records are stored only in public.swaymark_items, with owner_id equal to authenticated auth.uid().
-- Explicit SELECT, INSERT, UPDATE and DELETE row security. Anonymous role receives no table privileges.
-- Client JS reuses existing finance sign-in token/publishable API headers. It contains no service-role or secret key.
-- No finance accounts, transactions, budgets, tax or goals tables are queried or mutated.
-- Text is HTML-escaped before rendering; records remain in memory rather than localStorage.
-- Business finance records are separate from personal account balances.
+## Rollback (maintainer)
 
-## Finance release maintenance
+If a Finance Hub regression is reported, retrieve the known-good version from \`personal-finance-rollback-v130\` (Supabase Edge Function) and redeploy its source to the \`personal-finance-release\` slug, changing the path marker back from \`/personal-finance-rollback-v130/\` to \`/personal-finance-release/\`. Confirm \`version.json\` reads 1.3.0 and the app works. Do not run SQL migrations or delete the business table during code rollback. The rollback function was copied before the stable promotion.
 
-The current personal-finance-release Edge Function is a versioned static release server. It serves JavaScript and CSS assets under releases/version paths using compressed base assets and dynamic patches. To promote this extension, append SWAYMARK JS to latest-release app.js and SWAYMARK CSS to latest-release style.css, bump the release manifest, and perform comprehensive browser QA before deploying to the stable function. Do not overwrite the currently working release without a tested rollback.
+## Before production CRM use
 
-The preview is source-level integration, not proof of live end-to-end performance while the database is hibernated.
+1. Sign into the Windows Finance Hub and open SWAYMARK Business, confirm left navigation and section tabs.
+2. Create, edit, delete and reload sample data in each business section. Verify completed tasks and printed quotes. Verify normal finance features still function.
+3. Verify cross-user access denial with two real authenticated sessions and check the database Security Advisor. The simulated-user RLS transaction test already passed.
+4. Ensure a backup and retention plan for the shared Supabase project; ensure appropriate privacy disclosures and consent before storing real customer data.
+5. Test a protected website-to-app submission flow with spam protection before changing the public FormSubmit contact form. The current website form must remain operational until then.
+6. Do not use draft quote printouts as tax invoices or Business finance as tax/accounting software.
+
+## Release endpoints
+
+- Current stable manifest: https://glopetsbjaoxutjghgdo.supabase.co/functions/v1/personal-finance-release/version.json
+- Previous version (rollback): https://glopetsbjaoxutjghgdo.supabase.co/functions/v1/personal-finance-rollback-v130/version.json
