@@ -279,3 +279,19 @@ document.addEventListener("change",ev=>{if(ev.target.matches("[data-filter]")){S
 document.addEventListener("submit",async ev=>{if(ev.target.id!=="login")return;ev.preventDefault();const data=new FormData(ev.target);const button=ev.target.querySelector("button[type=submit]");button.disabled=true;button.textContent="Signing in…";try{await passwordLogin(String(data.get("email")||"").trim(),String(data.get("password")||""));await fetchItems();notice("Welcome to SWAYMARK HQ.");}catch(err){storeSession(null);$("#login-error").textContent=err.message||"Could not sign in.";button.disabled=false;button.textContent="Sign in to SWAYMARK HQ →";}});
 document.addEventListener("keydown",ev=>{if(ev.key==="/"&&!["INPUT","TEXTAREA"].includes(document.activeElement?.tagName)){const x=$("[data-search]");if(x){ev.preventDefault();x.focus();}}});
 (async()=>{try{const x=JSON.parse(sessionStorage.getItem(SESSION)||"null");if(x?.access&&x?.refresh&&x?.id){S.session=x;if(Date.now()>x.expires-60000)await renewSession();}}catch{storeSession(null);}render();if(S.session)await fetchItems();})();
+
+/* SWAYMARK HQ background enquiry checker (new leads only). */
+let enquiryPollBusy=false;
+async function checkNewWebsiteEnquiries(){
+  if(enquiryPollBusy||!S.session||S.loading||S.saving||document.visibilityState!=="visible"||document.querySelector("#edit-dialog"))return;
+  enquiryPollBusy=true;
+  try{
+    const recent=await db("GET","?select=id,kind&kind=eq.enquiries&order=created_at.desc&limit=30");
+    if(Array.isArray(recent)&&recent.some(r=>!S.items.some(x=>x.id===r.id))){
+      await fetchItems();
+      if(recent.some(r=>S.items.some(x=>x.id===r.id)))notice("New enquiry received in SWAYMARK HQ.");
+    }
+  }catch{}finally{enquiryPollBusy=false;}
+}
+window.setInterval(checkNewWebsiteEnquiries,60000);
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkNewWebsiteEnquiries();});
