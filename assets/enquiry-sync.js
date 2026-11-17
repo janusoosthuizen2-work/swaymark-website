@@ -33,7 +33,8 @@
   script.addEventListener("error",()=>{status.textContent="App security check unavailable. Enquiries can still be submitted by email.";});
   document.head.append(script);
   form.addEventListener("submit",async event=>{
-    if(!ready||busy||!token)return; // Default HTML form keeps email available.
+    if(busy){event.preventDefault();return;}
+    if(!ready||!token)return; // Default HTML form keeps email available.
     event.preventDefault();if(!form.reportValidity())return;
     busy=true;
     const button=form.querySelector('button[type="submit"]');
