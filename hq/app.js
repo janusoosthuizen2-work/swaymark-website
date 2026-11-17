@@ -90,7 +90,7 @@ const F={
  settings:{title:"Settings",single:"profile",cols:["businessName","businessEmail"],fields:[
  ["businessName","Business name","text",1],["businessEmail","Business email","email"],
  ["businessWebsite","Business website","url"],["phone","Phone","tel"],
- ["notes","Notes","textarea"]],defaults:{businessName:"SWAYMARK"}}
+ ["notes","Notes","textarea"]],defaults:{businessName:"SWAYMARK",businessEmail:"swaymark.studio@gmail.com",businessWebsite:"https://swaymark.pages.dev/"}}
 };
 const GROUPS=[
  ["WORKSPACE",[["overview","Overview","◈"],["websites","Websites","◎"],["clients","Clients","◉"],["enquiries","Enquiries","↗"]]],

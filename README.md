@@ -7,9 +7,9 @@ Professional, fast, accessible seven-page static business website for SWAYMARK.
 - Legacy site (remains online, now advertises Pages as canonical): https://janusoosthuizen2-work.github.io/swaymark-website/
 - Primary free hosting: Cloudflare Pages, built from GitHub main branch, repository root
 - Legacy hosting: GitHub Pages remains active for existing visitors
-- Business enquiries: janusoosthuizen2@gmail.com and 070 434 7735 (both public)
-- Contact form: native HTTPS POST to FormSubmit.co (free external service), with default reCAPTCHA and a hidden spam honeypot. Submission is emailed to janusoosthuizen2@gmail.com after completed one-time email activation (confirmed 15 November 2026). No custom server/API credentials are stored in client code. FormSubmit archives submissions for 30 days according to its documentation.
-- Form handling: branded `thanks.html` after a completed submission and any spam challenge. A controlled FormSubmit test was received at the listed Gmail address on 15 November 2026; third-party delivery can still occasionally fail.
+- Business enquiries: swaymark.studio@gmail.com and 070 434 7735 (both public)
+- Contact form: native HTTPS POST to FormSubmit.co (free external service), with default reCAPTCHA and a hidden spam honeypot. Submission is emailed to swaymark.studio@gmail.com after new-recipient email activation (requires verification after changing the destination mailbox). No custom server/API credentials are stored in client code. FormSubmit archives submissions for 30 days according to its documentation.
+- Form handling: branded `thanks.html` after a completed submission and any spam challenge. An earlier form test went to the former personal mailbox. Verify the new SWAYMARK Gmail destination with FormSubmit and send a fresh test before relying on email delivery.
 - No advertising trackers, analytics, paid fonts or third-party JavaScript on the SWAYMARK pages. Submitting the form transfers data to FormSubmit; its reCAPTCHA challenge may involve Google's cookies/technical processing.
 - SEO: unique metadata, canonical URLs, JSON-LD, sitemap.xml, index/follow. Search Console verification and sitemap submission still require a verified site owner.
 
