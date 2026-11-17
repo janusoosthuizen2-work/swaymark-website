@@ -2,6 +2,6 @@
 window.SWAYMARK_CONFIG = {
   businessEmail: 'swaymark.studio@gmail.com',
   businessPhone: '070 434 7735',
-  // Enable only after the Turnstile site key and Supabase secret are configured and tested.
-  hqSync: { enabled: false, siteKey: '0x4AAAAAAGFP9e-QYtTniXjk' }
+  // Public Turnstile site key; private verification secret stays in Supabase.
+  hqSync: { enabled: true, siteKey: '0x4AAAAAAGFP9e-QYtTniXjk' }
 };
