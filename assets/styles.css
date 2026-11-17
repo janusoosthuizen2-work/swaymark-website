@@ -505,3 +505,10 @@ body { background: #f8f9f3; }
   .concept-content.signature-screen { min-height: 225px; }
   .service-example-link .text-link { margin: 10px 0 0; }
 }
+
+/* Optional SWAYMARK HQ enquiry sync form controls. */
+.sw-form-ack{display:flex;gap:10px;align-items:flex-start;color:#52635a;font-size:13px;line-height:1.5;margin:0 0 16px;cursor:pointer}
+.sw-form-ack input{width:17px;height:17px;min-width:17px;margin-top:2px;accent-color:#256a49}
+.sw-form-ack a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.sw-sync-captcha{margin-bottom:10px;min-height:0}
+.sw-sync-status{font-size:12px;line-height:1.5;color:#526d57;margin:0 0 12px}
